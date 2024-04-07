@@ -13,9 +13,10 @@ public class Animal {
 
     public String getDescription() {
         return String.format(
-                "This animal is mostly %s. It has %s paws and %s fur.",
+                "This animal is mostly %s. It has %s paw%s and %s fur.",
                 this.color,
                 this.numberOfPaws,
+                this.numberOfPaws>1?"s":"",
                 this.hasFur ? "a" : "no"
         );
     }
