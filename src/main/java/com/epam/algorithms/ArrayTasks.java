@@ -11,7 +11,9 @@ public class ArrayTasks {
      * Return a String[] array that will list all the seasons of the year, starting with winter.
      */
     public String[] seasonsArray() {
-        return null;
+        return new String[]{
+                "winter", "spring", "summer", "autumn"
+        };
     }
 
     /**
@@ -23,7 +25,11 @@ public class ArrayTasks {
      * length = 1  -> [1] length = 3  -> [1, 2, 3] length = 5  -> [1, 2, 3, 4, 5]
      */
     public int[] generateNumbers(int length) {
-        return null;
+        var res = new int[length];
+        for (int i = 1; i <= length; i++) {
+            res[i - 1] = i;
+        }
+        return res;
     }
 
     /**
@@ -34,7 +40,11 @@ public class ArrayTasks {
      * arr = [1, 3, 5]   -> sum = 9 arr = [5, -3, -4] -> sum = -2
      */
     public int totalSum(int[] arr) {
-        return 0;
+        var res = 0;
+        for (int j : arr) {
+            res += j;
+        }
+        return res;
     }
 
     /**
@@ -46,7 +56,14 @@ public class ArrayTasks {
      * arr = [99, -7, 102], number = -7    ->   2 arr = [5, -3, -4],   number = 10    ->  -1
      */
     public int findIndexOfNumber(int[] arr, int number) {
-        return 0;
+        var res = -1;
+        for (int i = 0; i < arr.length; i++) {
+            if (number == arr[i]) {
+                res = i;
+                break;
+            }
+        }
+        return res;
     }
 
     /**
@@ -58,7 +75,12 @@ public class ArrayTasks {
      * "pineapple"]
      */
     public String[] reverseArray(String[] arr) {
-        return null;
+        var res = new String[arr.length];
+        var resLength = arr.length - 1;
+        for (int i = resLength; i >= 0; i--) {
+            res[resLength - i] = arr[i];
+        }
+        return res;
     }
 
     /**
@@ -70,7 +92,20 @@ public class ArrayTasks {
      * arr = [1,-2, 3]      -> [1, 3] arr = [-1, -2, -3]   -> [] arr = [1, 2]         -> [1, 2]
      */
     public int[] getOnlyPositiveNumbers(int[] arr) {
-        return null;
+        var positive = 0;
+        for (int j : arr) {
+            if (j > 0) {
+                positive++;
+            }
+        }
+        var res = new int[positive];
+        positive = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > 0) {
+                res[positive++] = arr[i];
+            }
+        }
+        return res;
     }
 
     /**
@@ -83,7 +118,57 @@ public class ArrayTasks {
      * arr = [[3, 1, 2,], [3,2]] -> [[2, 3], [1, 2, 3]] arr = [[5, 4], [7]]       -> [[7], [4, 5]]
      */
     public int[][] sortRaggedArray(int[][] arr) {
-        return null;
+
+        for (int z = 0; z < arr.length; z++) {
+            var arrToRange = arr[z];
+            for (int i = 0; i < arrToRange.length; i++) {
+                var min = arrToRange[i];
+                var indexmin = i;
+                for (int j = i + 1; j < arrToRange.length; j++) {
+                    if (min > arrToRange[j]) {
+                        indexmin = j;
+                    }
+                }
+                if (i != indexmin) {
+                    var temp = arrToRange[i];
+                    arrToRange[i] = arrToRange[indexmin];
+                    arrToRange[indexmin] = temp;
+                }
+            }
+        }
+        for (int z = 0; z < arr.length; z++) {
+            var min = arr[z].length;
+            var indexmin = z;
+            for (int i = z + 1; i < arr.length; i++) {
+                if ((arr[i].length != min) && (arr[i].length < min)) {
+                    min = arr[i].length;
+                    indexmin = i;
+                }
+            }
+            if (indexmin != z) {
+                arr = swap(arr, indexmin, z);
+            }
+
+        }
+
+        return arr;
     }
 
+    private int[][] swap(int[][] arr, int indexmin, int current) {
+        var res = new int[arr.length][];
+        res[current] = arr[indexmin];
+        res[current + 1] = arr[current];
+        for (int i = 0; i < current; i++) {
+            res[i] = arr[i];
+        }
+        int resCount = 1;
+        for (int i = current + 1; i < arr.length; i++) {
+            if (i == indexmin) {
+                resCount = 0;
+                continue;
+            }
+            res[i + resCount] = arr[i];
+        }
+        return res;
+    }
 }
